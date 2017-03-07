@@ -4,51 +4,51 @@ import "fmt"
 
 func main() {
 	var totalDis [2]int64
-	fmt.Scanf("%v %v", &totalDis[0], &totalDis[1])
-	if totalDis[0] > totalDis[1] {
-		temp := totalDis[1]
-		totalDis[1] = totalDis[0]
-		totalDis[0] = temp
-	}
+	totalDis[0], totalDis[1] = getTwoNumber()
 
 	var treeDis [2]int64
-	fmt.Scanf("%v %v", &treeDis[0], &treeDis[1])
-	if treeDis[0] > treeDis[1] {
-		temp := treeDis[1]
-		treeDis[1] = treeDis[0]
-		treeDis[0] = temp
-	}
+	treeDis[0], treeDis[1] = getTwoNumber()
 
 	var totalApple, totalOrange int64
 	fmt.Scanf("%v %v", &totalApple, &totalOrange)
 
-	var appleAddress []int64
-	for i := 0; int64(i) < totalApple; i++ {
-		var appleDis int64
-		fmt.Scanf("%v", &appleDis)
-		appleAddress = append(appleAddress, treeDis[0]+appleDis)
-	}
+	appleAddress := getList(totalApple, treeDis[0])
+	orangeAddress := getList(totalOrange, treeDis[1])
 
-	var orangeAddress []int64
-	for i := 0; int64(i) < totalOrange; i++ {
-		var orangeDis int64
-		fmt.Scanf("%v", &orangeDis)
-		orangeAddress = append(orangeAddress, treeDis[1]+orangeDis)
-	}
-
-	appleOut := 0
-	for i := 0; i < len(appleAddress); i++ {
-		if appleAddress[i] >= totalDis[0] && appleAddress[i] <= totalDis[1] {
-			appleOut++
-		}
-	}
+	appleOut := calculateFruit(appleAddress, totalDis[0], totalDis[1])
 	fmt.Println(appleOut)
 
-	orangeOut := 0
-	for i := 0; i < len(orangeAddress); i++ {
-		if orangeAddress[i] >= totalDis[0] && orangeAddress[i] <= totalDis[1] {
-			orangeOut++
+	orangeOut := calculateFruit(orangeAddress, totalDis[0], totalDis[1])
+	fmt.Println(orangeOut)
+}
+
+func calculateFruit(friSlice []int64, base1, base2 int64) int {
+	ret := 0
+	for i := 0; i < len(friSlice); i++ {
+		if friSlice[i] >= base1 && friSlice[i] <= base2 {
+			ret++
 		}
 	}
-	fmt.Println(orangeOut)
+	return ret
+}
+
+func getTwoNumber() (int64, int64) {
+	var val1, val2 int64
+	fmt.Scanf("%v %v", &val1, &val2)
+	if val1 > val2 {
+		temp := val2
+		val2 = val1
+		val1 = temp
+	}
+	return val1, val2
+}
+
+func getList(length int64, base int64) []int64 {
+	var retSlice []int64
+	for i := 0; int64(i) < length; i++ {
+		var dis int64
+		fmt.Scanf("%v", &dis)
+		retSlice = append(retSlice, base+dis)
+	}
+	return retSlice
 }
