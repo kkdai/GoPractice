@@ -8,12 +8,14 @@ func main() {
 	var numS, numT int
 	fmt.Scanf("%v %v", &numS, &numT)
 
+	if numS < numT {
+		fmt.Println("No")
+		return
+	}
+
 	s := InputMap(numS)
-	// s = s[:numS]
-	// fmt.Println(s)
-	t := InputMap(numT)
-	// t = t[:numT]
-	// fmt.Println(t)
+	t := InputAry(numT)
+
 	if CompareTwoMap(s, t) == true {
 		fmt.Println("Yes")
 	} else {
@@ -22,8 +24,8 @@ func main() {
 }
 
 //CompareTwoMap :
-func CompareTwoMap(s, t map[string]int) bool {
-	for k, _ := range t {
+func CompareTwoMap(s map[string]int, t []string) bool {
+	for _, k := range t {
 		if s[k] == 0 {
 			return false
 		} else {
@@ -39,7 +41,6 @@ func InputMap(size int) map[string]int {
 	for i := 0; i < size; i++ {
 		val := Input()
 		if len(val) > 0 {
-			// fmt.Println(val)
 			m[val] = m[val] + 1
 		} else {
 			i--
@@ -50,9 +51,23 @@ func InputMap(size int) map[string]int {
 	return m
 }
 
+//InputAry :
+func InputAry(size int) []string {
+	var retAry []string
+	for i := 0; i < size; i++ {
+		val := Input()
+		if len(val) > 0 {
+			retAry = append(retAry, val)
+		} else {
+			i--
+		}
+	}
+	return retAry
+}
+
 //Input :
 func Input() string {
 	var input string
-	fmt.Scanf("%s", &input)
+	fmt.Scanf("%v", &input)
 	return input
 }
