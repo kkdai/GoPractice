@@ -26,7 +26,7 @@ func (h *IntHeap) Pop() interface{} {
 type MaxHeap []int
 
 func (h MaxHeap) Len() int           { return len(h) }
-func (h MaxHeap) Less(i, j int) bool { return h[i] > h[j] }
+func (h MaxHeap) Less(i, j int) bool { return h[i] < h[j] }
 func (h MaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 
 func (h *MaxHeap) Push(x interface{}) {
@@ -44,7 +44,7 @@ func (h *MaxHeap) Pop() interface{} {
 type MinHeap []int
 
 func (h MinHeap) Len() int           { return len(h) }
-func (h MinHeap) Less(i, j int) bool { return h[i] < h[j] }
+func (h MinHeap) Less(i, j int) bool { return h[i] > h[j] }
 func (h MinHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 
 func (h *MinHeap) Push(x interface{}) {
@@ -113,7 +113,7 @@ func add(min *MinHeap, max *MaxHeap, in int) {
 		}
 	}
 
-	fmt.Println(min, max)
+	// fmt.Println(min, max)
 }
 
 func main() {
@@ -134,9 +134,9 @@ func main() {
 	}
 
 	// var outputSlice []float64
-	med := &IntHeap{}
+	// med := &IntHeap{}
 	// max := &MaxHeap{}
-	heap.Init(med)
+	// heap.Init(med)
 	// heap.Init(max)
 
 	for i := 0; i < num; i++ {
@@ -144,15 +144,15 @@ func main() {
 		fmt.Scanf("%v", &temp)
 		// var ret float64
 
-		heap.Push(med, temp)
-		fmt.Println("top:", (*med)[0])
+		// heap.Push(med, temp)
+		// fmt.Println("top:", (*med)[0])
 		// heap.Push(max, temp)
-		if i == 5 {
-			for j := 0; j <= 5; j++ {
-				fmt.Println(heap.Pop(med))
-			}
-		}
-		fmt.Println(med)
+		// if i == 5 {
+		// for j := 0; j <= 5; j++ {
+		// fmt.Println(heap.Pop(med))
+		// }
+		// }
+		// fmt.Println(med)
 		for j := i; j < num; j++ {
 			add(minList[j], maxList[j], temp)
 		}
