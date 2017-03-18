@@ -145,9 +145,10 @@ func main() {
 		// var ret float64
 
 		heap.Push(med, temp)
+		fmt.Println("top:", (*med)[0])
 		// heap.Push(max, temp)
 		if i == 5 {
-			for j := 0; j < 5; j++ {
+			for j := 0; j <= 5; j++ {
 				fmt.Println(heap.Pop(med))
 			}
 		}
