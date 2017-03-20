@@ -120,20 +120,22 @@ func main() {
 	var num int
 	fmt.Scanf("%v", &num)
 
-	minList := []*MinHeap{}
-	maxList := []*MaxHeap{}
+	minList := &MinHeap{}
+	maxList := &MaxHeap{}
+	heap.Init(minList)
+	heap.Init(maxList)
 
-	for i := 0; i < num; i++ {
-		min := &MinHeap{}
-		max := &MaxHeap{}
-		heap.Init(min)
-		heap.Init(max)
+	// for i := 0; i < num; i++ {
+	// 	min := &MinHeap{}
+	// 	max := &MaxHeap{}
+	// 	heap.Init(min)
+	// 	heap.Init(max)
 
-		minList = append(minList, min)
-		maxList = append(maxList, max)
-	}
+	// 	minList = append(minList, min)
+	// 	maxList = append(maxList, max)
+	// }
 
-	// var outputSlice []float64
+	var outputSlice []float64
 	// med := &IntHeap{}
 	// max := &MaxHeap{}
 	// heap.Init(med)
@@ -153,23 +155,36 @@ func main() {
 		// }
 		// }
 		// fmt.Println(med)
-		for j := i; j < num; j++ {
-			add(minList[j], maxList[j], temp)
+		// for j := i; j < num; j++ {
+		add(minList, maxList, temp)
+		// }
+
+		var tempOut float64
+		n := minList.Len() + maxList.Len()
+		if n%2 == 0 {
+			m1 := float64((*minList)[0])
+			m2 := float64((*maxList)[0])
+			tempOut = (m1 + m2) / float64(2)
+		} else {
+			tempOut = float64((*minList)[0])
 		}
 
+		// fmt.Println(tempOut)
+		outputSlice = append(outputSlice, tempOut)
 		// fmt.Println(minList, maxList)
 		// outputSlice = append(outputSlice, ret)
 	}
 
 	for i := 0; i < num; i++ {
+		fmt.Printf("%1.1f\n", outputSlice[i])
 
-		n := minList[i].Len() + maxList[i].Len()
-		if n%2 == 0 {
-			m1 := float64(heap.Pop(minList[i]).(int))
-			m2 := float64(heap.Pop(maxList[i]).(int))
-			fmt.Printf("%1.1f\n", (m1+m2)/float64(2))
-		} else {
-			fmt.Printf("%1.1f\n", float64(heap.Pop(minList[i]).(int)))
-		}
+		// n := minList[i].Len() + maxList[i].Len()
+		// if n%2 == 0 {
+		// 	m1 := float64(heap.Pop(minList[i]).(int))
+		// 	m2 := float64(heap.Pop(maxList[i]).(int))
+		// 	fmt.Printf("%1.1f\n", (m1+m2)/float64(2))
+		// } else {
+		// 	fmt.Printf("%1.1f\n", float64(heap.Pop(minList[i]).(int)))
+		// }
 	}
 }
